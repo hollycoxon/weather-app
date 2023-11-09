@@ -1,0 +1,129 @@
+body {
+  background-color: #2e94b9;
+}
+.card-whole {
+  margin: 10px auto;
+  margin-top: 40px;
+  padding: 20px;
+  width: 900px;
+  color: #475053;
+  font-family: "Noto Sans Display", sans-serif;
+  white-space: nowrap;
+  background-color: #f0fbff;
+}
+.card-header {
+  background-color: rgba(172, 220, 238, 0.5);
+}
+.favorites-icon {
+  color: gold;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 10px 0px;
+}
+.favorites-icon:hover {
+  font-weight: 900;
+  cursor: pointer;
+}
+.favorites {
+  text-decoration: none;
+  text-align: center;
+  color: #475053;
+  padding: 10px 5px;
+}
+.favorites:hover,
+.centigrade:hover,
+.farenheight:hover {
+  background-color: rgba(46, 148, 185, 0.7);
+  border-radius: 10px;
+  padding: 10px 5px;
+  cursor: pointer;
+}
+.search-button {
+  float: right;
+  color: #f0fbff;
+  background-color: rgba(46, 148, 185, 0.7);
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.search-button:hover {
+  background-color: rgba(46, 148, 185);
+  color: #f0fbff;
+}
+.currentLocation {
+  font-style: italic;
+  font-size: small;
+  cursor: pointer;
+  line-height: 3;
+}
+.currentLocation:hover {
+  color: #2e94b9;
+}
+.current-weather-section {
+  font-size: 20px;
+}
+.forecast-icon-current {
+  color: #475053;
+  font-size: 80px;
+  float: right;
+}
+.temp-range {
+  font-size: x-small;
+}
+.low-temp,
+.other-info-value {
+  opacity: 0.7;
+}
+.unit {
+  padding: 10px 5px;
+}
+.unit,
+.other-info {
+  text-align: right;
+}
+.card-7day {
+  padding: 20px;
+}
+.card-1day {
+  margin: 10px;
+  text-align: center;
+}
+.card-7day,
+.card-1day {
+  border: 1px solid #2e94b9;
+  background-color: #f0fbff;
+}
+.header-7day,
+h1 {
+  font-weight: bold;
+}
+.card-1day:hover {
+  background-color: rgba(46, 148, 185, 0.5);
+}
+.forecast-icon {
+  text-align: center;
+  font-size: 24px;
+  color: #475053;
+}
+.footer {
+  margin: 0 auto;
+  color: #475053;
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  max-width: 900px;
+  display: block;
+}
+.first-color {
+  background: #2e94b9;
+}
+
+.second-color {
+  background: #475053;
+}
+
+.third-color {
+  background: #acdcee;
+}
+
+.fourth-color {
+  background: #f0fbff;
+}
