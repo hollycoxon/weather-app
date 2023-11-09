@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/d1eee6cb13.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <style>
+      body {
+        background-color: #2e94b9;
+      }
+      .card-whole {
+        margin: 10px auto;
+        margin-top: 40px;
+        padding: 20px;
+        width: 900px;
+        color: #475053;
+        font-family: "Noto Sans Display", sans-serif;
+        white-space: nowrap;
+        background-color: #f0fbff;
+      }
+      .card-header {
+        background-color: rgba(172, 220, 238, 0.5);
+      }
+      .favorites-icon {
+        color: gold;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 10px 0px;
+      }
+      .favorites-icon:hover {
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .favorites {
+        text-decoration: none;
+        text-align: center;
+        color: #475053;
+        padding: 10px 5px;
+      }
+      .favorites:hover,
+      .centigrade:hover,
+      .farenheight:hover {
+        background-color: rgba(46, 148, 185, 0.7);
+        border-radius: 10px;
+        padding: 10px 5px;
+        cursor: pointer;
+      }
+      .search-button {
+        float: right;
+        color: #f0fbff;
+        background-color: rgba(46, 148, 185, 0.7);
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .search-button:hover {
+        background-color: rgba(46, 148, 185);
+        color: #f0fbff;
+      }
+      .currentLocation {
+        font-style: italic;
+        font-size: small;
+        cursor: pointer;
+        line-height: 3;
+      }
+      .currentLocation:hover {
+        color: #2e94b9;
+      }
+      .current-weather-section {
+        font-size: 20px;
+      }
+      .forecast-icon-current {
+        color: #475053;
+        font-size: 80px;
+        float: right;
+      }
+      .temp-range {
+        font-size: x-small;
+      }
+      .low-temp,
+      .other-info-value {
+        opacity: 0.7;
+      }
+      .unit {
+        padding: 10px 5px;
+      }
+      .unit,
+      .other-info {
+        text-align: right;
+      }
+      .card-7day {
+        padding: 20px;
+      }
+      .card-1day {
+        margin: 10px;
+        text-align: center;
+      }
+      .card-7day,
+      .card-1day {
+        border: 1px solid #2e94b9;
+        background-color: #f0fbff;
+      }
+      .header-7day,
+      h1 {
+        font-weight: bold;
+      }
+      .card-1day:hover {
+        background-color: rgba(46, 148, 185, 0.5);
+      }
+      .forecast-icon {
+        text-align: center;
+        font-size: 24px;
+        color: #475053;
+      }
+      .footer {
+        margin: 0 auto;
+        color: #475053;
+        font-family: "Courier New", Courier, monospace;
+        font-size: small;
+        max-width: 900px;
+        display: block;
+      }
+      .first-color {
+        background: #2e94b9;
+      }
+
+      .second-color {
+        background: #475053;
+      }
+
+      .third-color {
+        background: #acdcee;
+      }
+
+      .fourth-color {
+        background: #f0fbff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card card-whole">
+        <div class="row card-header">
+          <div class="col-1">
+            <i class="fa-regular fa-star favorites-icon"></i>
+          </div>
+          <div class="col-2 favorites">Vancouver</div>
+          <div class="col-2 favorites">Perth</div>
+          <div class="col-2 favorites">Edinburgh</div>
+          <div class="col unit">
+            <span class="centigrade">C</span> |
+            <span class="farenheight">F</span>
+          </div>
+        </div>
+        <br />
+        <div class="card-body">
+          <section class="search-bar-section">
+            <form id="citySearch">
+              <div class="row">
+                <div class="col-10">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    class="form-control search-bar"
+                    autofocus
+                    id="userCityInput"
+                  />
+                </div>
+                <div class="col-2">
+                  <input
+                    type="submit"
+                    value="Search"
+                    class="btn search-button shadow"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <span class="currentLocation">
+                  <i class="fa-solid fa-location-crosshairs"></i>
+                  Use Current Location</span
+                >
+              </div>
+            </form>
+          </section>
+          <br />
+          <section class="current-weather-section">
+            <div class="row">
+              <div class="col-3">
+                <h1 class="city">London</h1>
+                <div class="row">
+                  <div class="col-6 today" id="day">Monday</div>
+                  <div class="col-6 time" id="time">14:55</div>
+                </div>
+              </div>
+              <div class="col-3">
+                <i class="fa-solid fa-sun forecast-icon-current"></i>
+              </div>
+              <div class="col-3">
+                <h1 class="temperature row" id="currentTemp">21°</h1>
+                <div class="row forecast">Partly Cloudy</div>
+              </div>
+              <div class="col other-info-box">
+                <div class="other-info">
+                  Precipitation: <span class="other-info-value">0%</span>
+                </div>
+                <div class="other-info">
+                  Humidity: <span class="other-info-value">55%</span>
+                </div>
+                <div class="other-info">
+                  Winds: <span class="other-info-value">3mph</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <br />
+          <br />
+          <section class="future-forecast-section">
+            <div class="card card-7day shadow">
+              <div class="card-body">
+                <div class="card-header header-7day">7 Day Forecast</div>
+                <div class="row 7days">
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Mon</div>
+                    <i class="fa-solid fa-cloud-sun forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:22 <span class="low-temp">L:13</span>
+                    </div>
+                  </div>
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Tue</div>
+                    <i class="fa-solid fa-sun forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:25 <span class="low-temp">L:13</span>
+                    </div>
+                  </div>
+
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Wed</div>
+                    <i class="fa-solid fa-cloud-rain forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:18 <span class="low-temp">L:9</span>
+                    </div>
+                  </div>
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Thu</div>
+                    <i class="fa-solid fa-cloud-bolt forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:10 <span class="low-temp">L:6</span>
+                    </div>
+                  </div>
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Fri</div>
+                    <i class="fa-solid fa-wind forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:12 <span class="low-temp">L:10</span>
+                    </div>
+                  </div>
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Sat</div>
+                    <i class="fa-solid fa-cloud-sun-rain forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:21 <span class="low-temp">L:8</span>
+                    </div>
+                  </div>
+                  <div class="col card card-1day shadow">
+                    <div class="card-body">Sun</div>
+                    <i class="fa-solid fa-rainbow forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:20 <span class="low-temp">L:6</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <span class="footer">This page was built by Holly Coxon.</span>
+    </div>
+    <script>
+      //update current temperature
+      function updateCurrentTemp(response) {
+        let currentCityTemp = Math.round(response.data.temperature.current);
+        let currentTempLabel = document.querySelector("#currentTemp");
+        currentTempLabel.innerHTML = `${currentCityTemp}°`;
+      }
+      //Update city searched
+      function searchCityUpdate(event) {
+        event.preventDefault();
+        let searchValue = document.querySelector("#userCityInput");
+
+        let city = document.querySelector("h1.city");
+        city.innerHTML = `${
+          searchValue.value.trim().substring(0, 1).toUpperCase() +
+          searchValue.value.trim().substring(1)
+        }`;
+        let apiKey = "eb90b6ft43fead476caf1eb7234o9610";
+        let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${searchValue.value}&key=${apiKey}`;
+        axios.get(apiUrl).then(updateCurrentTemp);
+      }
+      let searchButton = document.querySelector("#citySearch");
+      searchButton.addEventListener("submit", searchCityUpdate);
+
+      //Set dateTime to now
+      function currentDateTime() {
+        let now = new Date();
+        let wordDay = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+
+        let currentDay = document.querySelector("#day");
+        currentDay.innerHTML = `${wordDay[now.getDay()]}`;
+        let currentTime = document.querySelector("#time");
+        currentTime.innerHTML = `${now.getHours()}:${now
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`;
+      }
+      currentDateTime();
+    </script>
+  </body>
+</html>
