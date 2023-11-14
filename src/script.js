@@ -1,8 +1,32 @@
+//Build date in correct format
+function formatDate(date) {
+  let weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = weekDays[date.getDay()];
+  let hour = date.getHours();
+  let minute = date.getMinutes().toString().padStart(2, "0");
+  let time = `${hour}:${minute}`;
+  let dayElement = document.querySelector("#day");
+  dayElement.innerHTML = `${day}`;
+  let timeElement = document.querySelector("#time");
+  timeElement.innerHTML = `${time}`;
+}
+
 //update current temperature
 function updateCurrentTemp(response) {
   let currentCityTemp = Math.round(response.data.temperature.current);
   let currentTempLabel = document.querySelector("#currentTemp");
   currentTempLabel.innerHTML = `${currentCityTemp}°`;
+  let epochDate = response.data.time * 1000;
+  let date = new Date(epochDate);
+  formatDate(date);
 }
 //Update city searched
 function searchCityUpdate(event) {
