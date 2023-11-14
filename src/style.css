@@ -54,6 +54,8 @@ body {
   font-size: small;
   cursor: pointer;
   line-height: 3;
+  text-align: left;
+  max-width: fit-content;
 }
 .currentLocation:hover {
   color: #2e94b9;

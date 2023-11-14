@@ -21,6 +21,11 @@ function formatDate(date) {
 
 //update current weather details
 function updateWeather(response) {
+  let city = document.querySelector("h1.city");
+  city.innerHTML = `${
+    response.data.city.trim().substring(0, 1).toUpperCase() +
+    response.data.city.trim().substring(1)
+  }`;
   let currentCityTemp = Math.round(response.data.temperature.current);
   let currentTempLabel = document.querySelector("#currentTemp");
   currentTempLabel.innerHTML = `${currentCityTemp}°`;
@@ -53,12 +58,6 @@ function updateWeather(response) {
 function searchCityUpdate(event) {
   event.preventDefault();
   let searchValue = document.querySelector("#userCityInput");
-
-  let city = document.querySelector("h1.city");
-  city.innerHTML = `${
-    searchValue.value.trim().substring(0, 1).toUpperCase() +
-    searchValue.value.trim().substring(1)
-  }`;
   FetchCurrentWeather(searchValue.value);
 }
 function FetchCurrentWeather(city) {
@@ -68,6 +67,8 @@ function FetchCurrentWeather(city) {
 }
 let searchButton = document.querySelector("#citySearch");
 searchButton.addEventListener("submit", searchCityUpdate);
+let currentButton = document.querySelector("#current-location-button");
+currentButton.addEventListener("click", fetchCurrentLocation);
 
 // fetch forecast
 function formatForecastDay(timestamp) {
@@ -106,6 +107,18 @@ function displayForecast(response) {
                   </div>`;
   });
   forecast.innerHTML = forecastHtml;
+}
+//current Location button
+function fetchCurrentLocation() {
+  navigator.geolocation.getCurrentPosition(retrievePosition);
+}
+function retrievePosition(position) {
+  console.log(position.coords.latitude);
+  let longitude = position.coords.longitude;
+  let latitude = position.coords.latitude;
+  let apiKey = "eb90b6ft43fead476caf1eb7234o9610";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=${apiKey}`;
+  axios.get(apiUrl).then(updateWeather);
 }
 
 //call default city
