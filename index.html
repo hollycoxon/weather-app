@@ -79,21 +79,26 @@
                 </div>
               </div>
               <div class="col-3">
-                <i class="fa-solid fa-sun forecast-icon-current"></i>
+                <img
+                  id="icon"
+                  src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-night.png"
+                  alt=""
+                />
               </div>
               <div class="col-3">
                 <h1 class="temperature row" id="currentTemp">21°</h1>
-                <div class="row forecast">Partly Cloudy</div>
+                <div class="row forecast" id="weather-description">
+                  Partly Cloudy
+                </div>
               </div>
               <div class="col other-info-box">
+                <br />
                 <div class="other-info">
-                  Precipitation: <span class="other-info-value">0%</span>
+                  Humidity:
+                  <span class="other-info-value" id="humidity">55%</span>
                 </div>
                 <div class="other-info">
-                  Humidity: <span class="other-info-value">55%</span>
-                </div>
-                <div class="other-info">
-                  Winds: <span class="other-info-value">3mph</span>
+                  Winds: <span class="other-info-value" id="wind">3mph</span>
                 </div>
               </div>
             </div>

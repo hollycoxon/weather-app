@@ -61,9 +61,7 @@ body {
 .current-weather-section {
   font-size: 20px;
 }
-.forecast-icon-current {
-  color: #475053;
-  font-size: 80px;
+#icon {
   float: right;
 }
 .temp-range {
