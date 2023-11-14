@@ -64,26 +64,3 @@ function searchCityUpdate(event) {
 }
 let searchButton = document.querySelector("#citySearch");
 searchButton.addEventListener("submit", searchCityUpdate);
-
-//Set dateTime to now
-function currentDateTime() {
-  let now = new Date();
-  let wordDay = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  let currentDay = document.querySelector("#day");
-  currentDay.innerHTML = `${wordDay[now.getDay()]}`;
-  let currentTime = document.querySelector("#time");
-  currentTime.innerHTML = `${now.getHours()}:${now
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}`;
-}
-currentDateTime();
