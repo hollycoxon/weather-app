@@ -11,33 +11,7 @@ body {
   white-space: nowrap;
   background-color: #f0fbff;
 }
-.card-header {
-  background-color: rgba(172, 220, 238, 0.5);
-}
-.favorites-icon {
-  color: gold;
-  font-size: 25px;
-  font-weight: 500;
-  padding: 10px 0px;
-}
-.favorites-icon:hover {
-  font-weight: 900;
-  cursor: pointer;
-}
-.favorites {
-  text-decoration: none;
-  text-align: center;
-  color: #475053;
-  padding: 10px 5px;
-}
-.favorites:hover,
-.centigrade:hover,
-.farenheight:hover {
-  background-color: rgba(46, 148, 185, 0.7);
-  border-radius: 10px;
-  padding: 10px 5px;
-  cursor: pointer;
-}
+
 .search-button {
   float: right;
   color: #f0fbff;
@@ -77,10 +51,9 @@ body {
 .other-info-value {
   opacity: 0.7;
 }
-.unit {
-  padding: 10px 5px;
+#unit {
+  font-size: x-small;
 }
-.unit,
 .other-info {
   text-align: right;
 }

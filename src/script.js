@@ -28,7 +28,7 @@ function updateWeather(response) {
   }`;
   let currentCityTemp = Math.round(response.data.temperature.current);
   let currentTempLabel = document.querySelector("#currentTemp");
-  currentTempLabel.innerHTML = `${currentCityTemp}°`;
+  currentTempLabel.innerHTML = `${currentCityTemp}°C`;
   let epochDate = response.data.time * 1000;
   let date = new Date(epochDate);
   formatDate(date);
