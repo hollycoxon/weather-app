@@ -64,3 +64,21 @@ function searchCityUpdate(event) {
 }
 let searchButton = document.querySelector("#citySearch");
 searchButton.addEventListener("submit", searchCityUpdate);
+function displayForecast() {
+  let forecast = document.querySelector("#forecast");
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let forecastHtml = "";
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="col card card-1day shadow">
+                    <div class="card-body">${day}</div>
+                    <i class="fa-solid fa-cloud-sun forecast-icon"></i>
+                    <div class="card-body temp-range">
+                      H:22 <span class="low-temp">L:13</span>
+                    </div>
+                  </div>`;
+  });
+  forecast.innerHTML = forecastHtml;
+}
+displayForecast();
