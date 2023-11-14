@@ -23,6 +23,10 @@ body {
   background-color: rgba(46, 148, 185);
   color: #f0fbff;
 }
+.time-locale {
+  font-size: x-small;
+  opacity: 0.7;
+}
 .currentLocation {
   font-style: italic;
   font-size: small;
@@ -81,13 +85,21 @@ h1 {
   font-size: 24px;
   color: #475053;
 }
-.footer {
+footer {
   margin: 0 auto;
   color: #475053;
   font-family: "Courier New", Courier, monospace;
   font-size: small;
   max-width: 900px;
   display: block;
+}
+a {
+  color: #475053;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  text-decoration: underline;
 }
 .first-color {
   background: #2e94b9;
