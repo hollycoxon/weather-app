@@ -47,6 +47,7 @@ function updateWeather(response) {
       alt="${description}"
     />
   `;
+  getForecast(response.data.city);
 }
 //Update city searched
 function searchCityUpdate(event) {
@@ -58,27 +59,54 @@ function searchCityUpdate(event) {
     searchValue.value.trim().substring(0, 1).toUpperCase() +
     searchValue.value.trim().substring(1)
   }`;
+  FetchCurrentWeather(searchValue.value);
+}
+function FetchCurrentWeather(city) {
   let apiKey = "eb90b6ft43fead476caf1eb7234o9610";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${searchValue.value}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(updateWeather);
 }
 let searchButton = document.querySelector("#citySearch");
 searchButton.addEventListener("submit", searchCityUpdate);
-function displayForecast() {
+
+// fetch forecast
+function formatForecastDay(timestamp) {
+  let day = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "eb90b6ft43fead476caf1eb7234o9610";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+function displayForecast(response) {
+  console.log(response);
   let forecast = document.querySelector("#forecast");
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   let forecastHtml = "";
-  days.forEach(function (day) {
+  response.data.daily.forEach(function (day) {
     forecastHtml =
       forecastHtml +
       `<div class="col card card-1day shadow">
-                    <div class="card-body">${day}</div>
-                    <i class="fa-solid fa-cloud-sun forecast-icon"></i>
+                    <div class="card-body forecast-day">${formatForecastDay(
+                      day.time
+                    )}</div>
+                    <img
+                src="${day.condition.icon_url}"
+                alt=""
+              />
                     <div class="card-body temp-range">
-                      H:22 <span class="low-temp">L:13</span>
+                      H:${Math.round(
+                        day.temperature.maximum
+                      )} <span class="low-temp">L:${Math.round(
+        day.temperature.minimum
+      )}</span>
                     </div>
                   </div>`;
   });
   forecast.innerHTML = forecastHtml;
 }
-displayForecast();
+
+//call default city
+FetchCurrentWeather("London");

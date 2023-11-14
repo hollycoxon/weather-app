@@ -66,6 +66,10 @@ body {
 }
 .temp-range {
   font-size: x-small;
+  padding-top: 0px;
+}
+.forecast-day {
+  padding-bottom: 0px;
 }
 .low-temp,
 .other-info-value {
